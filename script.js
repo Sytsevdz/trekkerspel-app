@@ -183,18 +183,32 @@ function restartGame() {
 /**
  * Slaat de huidige scores op als een ronde en maakt scores weer 0
  */
-function saveRound() {
-  const snapshot = {
-    timestamp: new Date().toLocaleString(),
-    distance: distanceKm,
-    players: { ...players }
-  };
+async function saveRound() {
+  const snapshot = { … };
+
   rounds.push(snapshot);
 
-  // Reset scores voor volgende ronde
-  for (let name in players) {
-    players[name] = 0;
+  // reset scores…
+  for (let name in players) players[name] = 0;
+
+  // ─────────── Hier toevoegen ───────────
+  try {
+    const inserts = Object.entries(snapshot.players).map(([player,score]) => ({
+      timestamp:     snapshot.timestamp,
+      distance_km:   snapshot.distance,
+      player,
+      score,
+      points_per_km: score / snapshot.distance
+    }));
+    const { error } = await supabase
+      .from('global_rounds')
+      .insert(inserts);
+    if (error) console.error("Supabase insert error:", error);
+  } catch (err) {
+    console.error("Insert naar Supabase mislukt:", err);
   }
+  // ────────────────────────────────────
+
   persist();
   updateScoreboard();
   renderRounds();
