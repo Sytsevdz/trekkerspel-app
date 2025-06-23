@@ -96,14 +96,17 @@ input, button {
 }
 /* Global klassement */
 .globalLeaderboard {
-  margin-top: 30px;
-  text-align: left;
+  margin: 30px auto;      /* top/bottom 30px, horizontaal auto = gecentreerd */
+  text-align: center;     /* koptekst en inhoud gecentreerd */
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+}
+.globalLeaderboard h2 {
+  margin-bottom: 10px;
 }
 .globalLeaderboard ol {
   padding-left: 20px;
+  text-align: left;       /* lijstitems zelf links uitgelijnd */
+  margin: 0 auto;         /* zorg dat de ol ook gecentreerd staat */
 }
 .globalLeaderboard li {
   margin: 5px 0;
