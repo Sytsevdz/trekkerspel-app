@@ -23,24 +23,24 @@ async function fetchGlobalLeaderboard() {
     return;
   }
 
-  // 2. Aggregatie per speler
+   // 2. Aggregatie per speler (max i.p.v. som)
   const agg = {};
   data.forEach(r => {
+    const ppk = r.distance_km > 0 ? r.score / r.distance_km : 0;
     if (!agg[r.player]) {
-      agg[r.player] = { totalScore: 0, totalDist: 0 };
+      agg[r.player] = { maxScore: r.score, maxPpk: ppk };
+    } else {
+      agg[r.player].maxScore = Math.max(agg[r.player].maxScore, r.score);
+      agg[r.player].maxPpk   = Math.max(agg[r.player].maxPpk, ppk);
     }
-    agg[r.player].totalScore += r.score;
-    agg[r.player].totalDist  += r.distance_km;
   });
 
-  // 3. Omzetten naar array en sorteren
+  // 3. Omzetten naar array en sorteren op hoogste single‐round score
   const ranking = Object.entries(agg)
     .map(([player, stats]) => ({
       player,
-      score: stats.totalScore,
-      ppk:   stats.totalDist > 0
-             ? (stats.totalScore / stats.totalDist).toFixed(2)
-             : '0.00'
+      score: stats.maxScore,
+      ppk:   stats.maxPpk.toFixed(2)
     }))
     .sort((a, b) => b.score - a.score);
 
