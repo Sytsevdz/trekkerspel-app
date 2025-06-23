@@ -1,7 +1,13 @@
 // === Supabase Setup ===
+// Let op: de <script> met de Supabase UMD (cdn.jsdelivr.net/…) moet vóór dit bestand in index.html staan
+
 const SUPABASE_URL     = "https://jrsitrdcknsnhpljcgyy.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc2l0cmRja25zbmhwbGpjZ3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3MDE5MDMsImV4cCI6MjA2NjI3NzkwM30.6VnDioQ_AHAfx80jv18OkHz_4yxrDxTVNT5wdzY1KUI";
-const supabase          = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc2l0cmRja25zbmhwbGpjZ3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3MDE5MDMsImV4cCI6MjA2NjI3NzkwM30.6VnDioQ_AHAfx80jv18OkHz_4yxrDxTVNT5wdzY1KUI";  
+// Gebruik een andere variabelenaam zodat je de globale lib niet overschrijft:
+const supabaseClient   = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 // Load persisted state
 let players = JSON.parse(localStorage.getItem('players') || '{}');
@@ -205,7 +211,7 @@ const snapshot = {
       score,
       points_per_km: score / snapshot.distance
     }));
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('global_rounds')
       .insert(inserts);
     if (error) console.error("Supabase insert error:", error);
