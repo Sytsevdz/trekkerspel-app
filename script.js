@@ -42,7 +42,7 @@ async function fetchGlobalLeaderboard() {
       score: stats.maxScore,
       ppk:   stats.maxPpk.toFixed(2)
     }))
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => b.ppk - a.ppk);
 
   // 4. Renderen in de <ol>
   const list = document.getElementById('globalList');
