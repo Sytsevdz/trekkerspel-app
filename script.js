@@ -47,9 +47,9 @@ async function fetchGlobalLeaderboard() {
   // 4. Renderen in de <ol>
   const list = document.getElementById('globalList');
   list.innerHTML = '';
-  ranking.forEach((r, idx) => {
+  ranking.forEach(r => {
     const li = document.createElement('li');
-    li.textContent = `${idx+1}. ${r.player}: ${r.score} p, ${r.ppk} p/km`;
+    li.textContent = `${r.player}: ${r.score} p, ${r.ppk} p/km`;
     list.appendChild(li);
   });
 
