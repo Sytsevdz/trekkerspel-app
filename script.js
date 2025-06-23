@@ -205,7 +205,6 @@ const snapshot = {
   // ─────────── Hier toevoegen ───────────
   try {
     const inserts = Object.entries(snapshot.players).map(([player,score]) => ({
-      timestamp:     snapshot.timestamp,
       distance_km:   snapshot.distance,
       player,
       score,
