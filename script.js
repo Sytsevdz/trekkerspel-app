@@ -1,3 +1,8 @@
+// === Supabase Setup ===
+const SUPABASE_URL     = "https://jrsitrdcknsnhpljcgyy.supabase.co";
+const SUPABASE_ANON_KEY = "JE_ANON_KEY_HIER";  // plak hier jouw Anon Key
+const supabase          = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Load persisted state
 let players = JSON.parse(localStorage.getItem('players') || '{}');
 let distanceKm = parseFloat(localStorage.getItem('distanceKm') || '0');
