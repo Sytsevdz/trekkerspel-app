@@ -1,6 +1,6 @@
 // === Supabase Setup ===
 const SUPABASE_URL     = "https://jrsitrdcknsnhpljcgyy.supabase.co";
-const SUPABASE_ANON_KEY = "JE_ANON_KEY_HIER";  // plak hier jouw Anon Key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impyc2l0cmRja25zbmhwbGpjZ3l5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3MDE5MDMsImV4cCI6MjA2NjI3NzkwM30.6VnDioQ_AHAfx80jv18OkHz_4yxrDxTVNT5wdzY1KUI";
 const supabase          = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Load persisted state
