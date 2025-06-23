@@ -70,7 +70,14 @@ function updateScoreboard() {
     else if (rank === 3) rankClass = 'bronze';
     div.innerHTML = `<div class="rank ${rankClass}">${rank}</div>
       <h2>${name}</h2>
-      <p>${score} punten — ${perKm} p/km</p>
+      <p>
+  <input
+    type="number"
+    value="${score}"
+    onchange="updateScore('${name}', this.value)"
+    style="width:60px; text-align:center;"
+  > punten — ${perKm} p/km
+</p>
       <button onclick="openTrekkerModal('${name}')"><i class='fas fa-binoculars'></i> Trekker!</button>
       <button onclick="losePoints('${name}')"><i class='fas fa-skull-crossbones'></i> Fout!</button>`;
     board.appendChild(div);
@@ -147,6 +154,14 @@ function resetGame() {
   }
   persist();
   updateScoreboard();
+}
+function updateScore(name, value) {
+  const num = parseInt(value, 10);
+  if (!isNaN(num)) {
+    players[name] = num;
+    persist();           // localStorage up-to-date houden
+    updateScoreboard();  // UI verversen
+  }
 }
 
 function restartGame() {
