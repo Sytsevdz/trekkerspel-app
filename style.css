@@ -1,0 +1,73 @@
+body {
+  font-family: sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+.banner {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+input, button {
+  font-size: 16px;
+  padding: 8px;
+  margin: 5px;
+}
+.hidden {
+  display: none;
+}
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.player {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal.show {
+  display: flex;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.trekker-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  gap: 10px;
+}
+.trekker-buttons button:nth-child(1) { background-color: #4CAF50; }
+.trekker-buttons button:nth-child(2) { background-color: #2196F3; }
+.trekker-buttons button:nth-child(3) { background-color: #FF9800; }
+.trekker-buttons button:nth-child(4) { background-color: #9C27B0; }
+.trekker-buttons button:nth-child(5) { background-color: #F44336; }
+.trekker-buttons button:nth-child(6) { background-color: #795548; }
+.group-toggle {
+  margin: 15px 0;
+  font-size: 18px;
+}
