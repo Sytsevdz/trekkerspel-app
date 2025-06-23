@@ -184,7 +184,12 @@ function restartGame() {
  * Slaat de huidige scores op als een ronde en maakt scores weer 0
  */
 async function saveRound() {
-  const snapshot = { … };
+  // Maak een snapshot van de huidige ronde
+const snapshot = {
+  timestamp: new Date().toLocaleString(),  // datum/tijd
+  distance:  distanceKm,                   // afstand in km
+  players:   { ...players }                // kopie van alle scores
+};
 
   rounds.push(snapshot);
 
