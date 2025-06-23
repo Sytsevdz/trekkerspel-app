@@ -270,6 +270,7 @@ const snapshot = {
   persist();
   updateScoreboard();
   renderRounds();
+  await fetchGlobalLeaderboard();
   alert('Ronde opgeslagen!');
 }
 
@@ -294,6 +295,7 @@ function renderRounds() {
 
 // On load
 window.addEventListener('DOMContentLoaded', () => {
+  fetchGlobalLeaderboard();
   renderRounds();
   updateInitialList();
   if (distanceKm > 0) {
