@@ -51,21 +51,28 @@ function startGame() {
   document.getElementById('resetButton').classList.remove('hidden');
   document.getElementById('restartButton').classList.remove('hidden');
   updateScoreboard();
-  document.querySelector('header').innerHTML = `<img src=\"trekkerspel_banner.png\" class=\"banner\" alt=\"Banner\"/><h1>Trekkerspel App — ${distanceKm} km</h1>`;
+  document.querySelector('header').innerHTML = `<img src="trekkerspel_banner.png" class="banner" alt="Banner"/>
+    <h1>Trekkerspel App — ${distanceKm} km</h1>`;
 }
 
 function updateScoreboard() {
   const board = document.getElementById('scoreboard');
   board.innerHTML = '';
   const sorted = Object.entries(players).sort((a, b) => b[1] - a[1]);
-  sorted.forEach(([name, score]) => {
+  sorted.forEach(([name, score], idx) => {
+    const rank = idx + 1;
     const div = document.createElement('div');
     div.className = 'player';
     const perKm = distanceKm ? (score / distanceKm).toFixed(2) : '0.00';
-    div.innerHTML = `<h2>${name}</h2>
-                     <p>${score} punten — ${perKm} p/km</p>
-                     <button onclick="openTrekkerModal('${name}')"><i class='fas fa-binoculars'></i> Trekker!</button>
-                     <button onclick="losePoints('${name}')"><i class='fas fa-skull-crossbones'></i> Fout!</button>`;
+    let rankClass = '';
+    if (rank === 1) rankClass = 'gold';
+    else if (rank === 2) rankClass = 'silver';
+    else if (rank === 3) rankClass = 'bronze';
+    div.innerHTML = `<div class="rank ${rankClass}">${rank}</div>
+      <h2>${name}</h2>
+      <p>${score} punten — ${perKm} p/km</p>
+      <button onclick="openTrekkerModal('${name}')"><i class='fas fa-binoculars'></i> Trekker!</button>
+      <button onclick="losePoints('${name}')"><i class='fas fa-skull-crossbones'></i> Fout!</button>`;
     board.appendChild(div);
   });
 }
@@ -143,15 +150,19 @@ function resetGame() {
 }
 
 function restartGame() {
+  // Clear stored state and reload
+  localStorage.removeItem('players');
+  localStorage.removeItem('distanceKm');
   location.reload();
 }
 
-// On load: populate initial list and scoreboard if distance set
+// On load
 window.addEventListener('DOMContentLoaded', () => {
   updateInitialList();
   if (distanceKm > 0) {
     document.getElementById('distanceKm').value = distanceKm;
-    document.querySelector('header').innerHTML = `<img src="trekkerspel_banner.png" class="banner" alt="Banner"/><h1>Trekkerspel App — ${distanceKm} km</h1>`;
+    document.querySelector('header').innerHTML = `<img src="trekkerspel_banner.png" class="banner" alt="Banner"/>
+      <h1>Trekkerspel App — ${distanceKm} km</h1>`;
     document.getElementById('initialInput').classList.add('hidden');
     document.getElementById('newPlayerInput').classList.remove('hidden');
     document.getElementById('scoreboard').classList.remove('hidden');
