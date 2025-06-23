@@ -94,3 +94,17 @@ input, button {
   margin: 15px 0;
   font-size: 18px;
 }
+/* Global klassement */
+.globalLeaderboard {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.globalLeaderboard ol {
+  padding-left: 20px;
+}
+.globalLeaderboard li {
+  margin: 5px 0;
+}
