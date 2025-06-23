@@ -104,9 +104,10 @@ input, button {
   margin-bottom: 10px;
 }
 .globalLeaderboard ol {
-  padding-left: 20px;
-  text-align: center;       /* lijstitems zelf links uitgelijnd */
-  margin: 0 auto;         /* zorg dat de ol ook gecentreerd staat */
+  display: inline-block;   /* maak van de ol een inline-block */
+  margin: 0 auto;          /* centreer het inline-block */
+  padding-left: 20px;      /* behoud de inspringing voor de nummers */
+  text-align: left;        /* lijstekst links uitlijnen binnen het blok */
 }
 .globalLeaderboard li {
   margin: 5px 0;
