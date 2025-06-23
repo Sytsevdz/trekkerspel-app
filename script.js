@@ -1,12 +1,14 @@
 // Load persisted state
 let players = JSON.parse(localStorage.getItem('players') || '{}');
 let distanceKm = parseFloat(localStorage.getItem('distanceKm') || '0');
+let rounds = JSON.parse(localStorage.getItem('rounds') || '[]');
 let selectedPlayer = null;
 
 // Persist state
 function persist() {
   localStorage.setItem('players', JSON.stringify(players));
   localStorage.setItem('distanceKm', distanceKm);
+  localStorage.setItem('rounds', JSON.stringify(rounds));
 }
 
 function handleKey(e, isExtra) {
@@ -50,6 +52,8 @@ function startGame() {
   document.getElementById('scoreboard').classList.remove('hidden');
   document.getElementById('resetButton').classList.remove('hidden');
   document.getElementById('restartButton').classList.remove('hidden');
+  document.getElementById('saveRoundBtn').classList.remove('hidden');
+document.getElementById('roundsHistory').classList.remove('hidden');
   updateScoreboard();
   document.querySelector('header').innerHTML = `<img src="trekkerspel_banner.png" class="banner" alt="Banner"/>
     <h1>Trekkerspel App — ${distanceKm} km</h1>`;
@@ -171,8 +175,49 @@ function restartGame() {
   location.reload();
 }
 
+/**
+ * Slaat de huidige scores op als een ronde en maakt scores weer 0
+ */
+function saveRound() {
+  const snapshot = {
+    timestamp: new Date().toLocaleString(),
+    distance: distanceKm,
+    players: { ...players }
+  };
+  rounds.push(snapshot);
+
+  // Reset scores voor volgende ronde
+  for (let name in players) {
+    players[name] = 0;
+  }
+  persist();
+  updateScoreboard();
+  renderRounds();
+  alert('Ronde opgeslagen!');
+}
+
+/**
+ * Toont de geschiedenis van bewaarde rondes
+ */
+function renderRounds() {
+  const list = document.getElementById('roundList');
+  list.innerHTML = '';
+  rounds.forEach((r, i) => {
+    // Bepaal winnaar en punten per km
+    const sorted = Object.entries(r.players).sort((a,b)=>b[1]-a[1]);
+    const [winName, winScore] = sorted[0] || ['-', 0];
+    const winPpk = r.distance > 0 ? (winScore/r.distance).toFixed(2) : '0.00';
+    const li = document.createElement('li');
+    li.textContent =
+      `${i+1}. ${r.timestamp} — ${r.distance} km — ` +
+      `Winnaar: ${winName} (${winScore} p, ${winPpk} p/km)`;
+    list.appendChild(li);
+  });
+}
+
 // On load
 window.addEventListener('DOMContentLoaded', () => {
+  renderRounds();
   updateInitialList();
   if (distanceKm > 0) {
     document.getElementById('distanceKm').value = distanceKm;
