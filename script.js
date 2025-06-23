@@ -9,6 +9,54 @@ const supabaseClient   = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+/**
+ * Haalt alle records uit global_rounds, aggregeert per speler
+ * en toont een ranglijst in de <ol id="globalList">.
+ */
+async function fetchGlobalLeaderboard() {
+  // 1. Ophalen
+  const { data, error } = await supabaseClient
+    .from('global_rounds')
+    .select('player, score, distance_km');
+  if (error) {
+    console.error("Global fetch error:", error);
+    return;
+  }
+
+  // 2. Aggregatie per speler
+  const agg = {};
+  data.forEach(r => {
+    if (!agg[r.player]) {
+      agg[r.player] = { totalScore: 0, totalDist: 0 };
+    }
+    agg[r.player].totalScore += r.score;
+    agg[r.player].totalDist  += r.distance_km;
+  });
+
+  // 3. Omzetten naar array en sorteren
+  const ranking = Object.entries(agg)
+    .map(([player, stats]) => ({
+      player,
+      score: stats.totalScore,
+      ppk:   stats.totalDist > 0
+             ? (stats.totalScore / stats.totalDist).toFixed(2)
+             : '0.00'
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  // 4. Renderen in de <ol>
+  const list = document.getElementById('globalList');
+  list.innerHTML = '';
+  ranking.forEach((r, idx) => {
+    const li = document.createElement('li');
+    li.textContent = `${idx+1}. ${r.player}: ${r.score} p, ${r.ppk} p/km`;
+    list.appendChild(li);
+  });
+
+  // 5. Zichtbaar maken
+  document.getElementById('globalLeaderboard').classList.remove('hidden');
+}
+
 // Load persisted state
 let players = JSON.parse(localStorage.getItem('players') || '{}');
 let distanceKm = parseFloat(localStorage.getItem('distanceKm') || '0');
