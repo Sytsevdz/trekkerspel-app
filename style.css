@@ -112,3 +112,22 @@ input, button {
 .globalLeaderboard li {
   margin: 5px 0;
 }
+
+/* Reglement modal */
+.rules-content {
+  text-align: left;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.rules-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+.rules-content th, .rules-content td {
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+.rules-content th {
+  background: #f0f0f0;
+}
