@@ -205,6 +205,22 @@ function closeModal() {
   document.getElementById('trekkerModal').classList.remove('show');
 }
 
+function openInstructions() {
+  document.getElementById('instructionsModal').classList.add('show');
+}
+
+function closeInstructions() {
+  document.getElementById('instructionsModal').classList.remove('show');
+}
+
+function openRules() {
+  document.getElementById('rulesModal').classList.add('show');
+}
+
+function closeRules() {
+  document.getElementById('rulesModal').classList.remove('show');
+}
+
 function losePoints(name) {
   players[name] = 0;
   persist();
@@ -298,6 +314,10 @@ window.addEventListener('DOMContentLoaded', () => {
   fetchGlobalLeaderboard();
   renderRounds();
   updateInitialList();
+  if (!localStorage.getItem('instructionsSeen')) {
+    openInstructions();
+    localStorage.setItem('instructionsSeen', 'true');
+  }
   if (distanceKm > 0) {
     document.getElementById('distanceKm').value = distanceKm;
     document.querySelector('header').innerHTML = `<img src="trekkerspel_banner.png" class="banner" alt="Banner"/>

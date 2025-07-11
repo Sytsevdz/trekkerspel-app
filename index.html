@@ -14,6 +14,8 @@
     <img src="trekkerspel_banner.png" alt="Trekkerspel App Banner" class="banner">
   </header>
   <main>
+    <button id="instructionsBtn" onclick="openInstructions()">Instructies</button>
+    <button id="rulesBtn" onclick="openRules()">Trekkerspel Reglement</button>
     <div id="initialInput">
       <input type="text" id="playerName" placeholder="Spelernaam" onkeydown="handleKey(event, false)" />
       <button onclick="addPlayer()"><i class="fas fa-user-plus"></i> Voeg toe</button>
@@ -63,6 +65,92 @@
           <button onclick="selectTrekker(999)" data-base="999"><i class="fas fa-plane"></i> <span>Gevlogen trekker (999)</span></button>
         </div>
         <button onclick="cancelTrekker()"><i class="fas fa-times"></i> Annuleer</button>
+      </div>
+    </div>
+    <div class="modal" id="instructionsModal">
+      <div class="modal-content">
+        <h2>Instructies</h2>
+        <p>Voeg spelers toe en vul de afstand in kilometers in. Klik daarna op 'Start spel'.</p>
+        <p>Wanneer je een trekker ziet klik je bij je naam op 'Trekker!' en kies je de juiste soort.</p>
+        <p>Gebruik 'Ronde opslaan' om een ronde te bewaren. Met 'Reset scores' zet je alle scores op nul en via 'Herstart spel' begin je opnieuw.</p>
+        <button onclick="closeInstructions()">Sluit</button>
+      </div>
+    </div>
+
+    <div class="modal" id="rulesModal">
+      <div class="modal-content">
+        <h2>Trekkerspel Reglement</h2>
+        <pre>
+Trekkers
+Autospel van Sytse van der Zwan
+Trekker geboden
+Het is trekker geen tractor.
+Trekkers is een gentlemen's game: je speelt eerlijk.
+Het spel begint zodra iedereen zich op het vertrekpunt in de auto
+bevindt. Het spel eindigt pas als de eindbestemming is bereikt.
+Als een iemand een trekker ziet, mag hij/zij de trekker identificeren
+door de soort uit het Puntenoverzicht volledig te noemen. Hierna
+ontvangt hij/zij de bijbehorende punten. Als een trekker tot meerdere
+soorten behoort, moet gekozen worden hoe de trekker wordt geïdentificeerd.
+Degene die als eerste het woord trekker afmaakt krijgt de punten. Ook als je
+bezig was om bijvoorbeeld gereden trekker te zeggen.
+Een inzittende mag een groep van drie of meer trekkers gezamenlijk
+identificeren door de identificatie te beginnen met het woord 'groep'.
+Diegene ontvangt dit puntenaantal vijfmaal voor een juist
+geïdentificeerde groep trekkers.
+Nadat een trekker of groep trekkers juist is geïdentificeerd, wordt deze
+geacht niet meer te bestaan.
+Als iemand een trekker of groep trekkers onjuist identificeert,
+bijvoorbeeld een shovel, verliest diegene alle punten.
+Dit is een grote schande!
+Als er onduidelijkheid is heeft de bedenker van het spel het laatste
+woord. Ook bij het introduceren van nieuw soorten trekkers.
+Mocht het spel te makkelijk worden staan in Bijlage 3 Uitbreidingen.
+Puntenoverzicht
+Soort trekker Punten
+Trekker 1 punt
+Rijdende trekker 3 punten
+Vermomde trekker 6 punten
+Gereden trekker 15 punten
+Gevaren trekker 50 punten & een plek in de Trekker Hall of Fame.
+Gevlogen trekker Je wint het spel & een plek in de Trekker Hall of Fame.
+Opgeschreven door:
+Stan van den Berg
+Jorn van Gijn Versie: 13 oktober 2023
+Trekkers
+Autospel van Sytse van der Zwan
+Bijlage 1. Definities
+Term Definitie
+Trekker Een primair voor de landbouw ontworpen voertuig met vier wielen,
+waarvan de achterwielen groter zijn dan de voorwielen. De onderstaande
+afbeelding is een visueel voorbeeld van een trekker. Niet-kleurenblinden
+opgelet: de kleur kan afwijken van groen.
+Rijdende trekker Trekker die op eigen kracht voortbeweegt.
+Vermomde trekker Een trekker met een visuele afscheiding, waardoor het op het eerste
+gezicht geen trekker lijkt. Dit omvat, maar is niet beperkt tot,
+toeristentreintjes in de stad.
+Gereden trekker Trekker op een oplegger met snelheid.
+Gevaren trekker Trekker op een vaartuig met snelheid.
+Gevlogen trekker Trekker waarvan de wielen de grond niet raken en welke wordt
+voortbewogen door een vliegtuig of helikopter.
+Bijlage 2. Trekker Hall of Fame
+Naam Soort trekker Datum
+Marijke Dijkman Gevaren trekker Onbekend
+Bijlage 3. Uitbreidingen
+Werkende trekker
+(4 punten)
+Trekker die het land bewerkt of doet bewerken. Dit omvat, maar is niet
+beperkt tot, ploegen, oogsten en sproeien.
+Steigerende trekker
+(30 punten)
+Trekker waarvan de voorwielen van de grond komen.
+Ook kan gekozen worden om de volgende regel toe te voegen.
+Het als 2e zeggen van dezelfde trekker verliest men ook alle punten.
+Opgeschreven door:
+Stan van den Berg
+Jorn van Gijn Versie: 13 oktober 2023
+        </pre>
+        <button onclick="closeRules()">Sluit</button>
       </div>
     </div>
   </main>
